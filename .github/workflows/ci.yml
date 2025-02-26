@@ -28,4 +28,4 @@ jobs:
 
       - name: Run Selenium Tests
         run: |
-          python tests/test_login.py
+          pytest tests --maxfail=3 --disable-warnings -v
