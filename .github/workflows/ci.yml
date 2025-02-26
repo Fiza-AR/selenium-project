@@ -1,0 +1,41 @@
+name: Selenium Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        shell: powershell
+        run: |
+          python -m venv venv
+          & venv\Scripts\Activate
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Chrome & ChromeDriver
+        shell: powershell
+        run: |
+          choco install googlechrome chromedriver -y
+
+      - name: Run Selenium test
+        shell: powershell
+        run: |
+          & venv\Scripts\Activate
+          python tests/test_login.py
