@@ -19,16 +19,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.13"
+          python-version: "3.11"  # 🔥 Change from 3.13 to 3.11
 
       - name: Install dependencies
         run: |
-          python -m venv venv
-          venv\Scripts\activate
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Run Selenium Tests
-        run: |
-          venv\Scripts\activate
-          pytest tests --maxfail=3 --disable-warnings -v
+        run: pytest tests --maxfail=3 --disable-warnings -v
